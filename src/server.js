@@ -27,9 +27,6 @@ app.use(
 );
 
 // Перший маршрут
-app.get('/', (req, res) => {
-  res.status(200).json({ message: 'Hello world!' });
-});
 
 app.get('/notes', (req, res) => {
   res.status(200).json({ message: 'Retrieved all notes' });
@@ -52,7 +49,6 @@ app.use((err, req, res, next) => {
   console.error('Error:', err.message);
   res.status(500).json({
     message: 'Internal Server Error',
-    error: err.message,
   });
 });
 
