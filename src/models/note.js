@@ -11,6 +11,7 @@ const noteSchema = new Schema(
       type: String,
       required: false,
       trim: true,
+      default: '',
     },
     tag: {
       type: String,
@@ -26,7 +27,7 @@ const noteSchema = new Schema(
         'Important',
         'Todo',
       ],
-      requried: false,
+      required: false,
       default: 'Todo',
     },
   },
