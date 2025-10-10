@@ -15,7 +15,7 @@ export const createNoteSchema = {
       'string.max': 'Title should have at most {#limit} characters',
       'any.required': 'Title is required',
     }),
-    content: Joi.string().max(100).messages({
+    content: Joi.string().max(100).allow('').messages({
       'string.max': 'Content should have at most {#limit} characters',
     }),
     tag: Joi.string().valid(...TAGS),
@@ -38,10 +38,9 @@ export const updateNoteSchema = {
     noteId: Joi.string().custom(objectIdValidator).required(),
   }),
   [Segments.BODY]: Joi.object({
-    title: Joi.string().min(1).max(30).required().messages({
+    title: Joi.string().min(1).max(30).messages({
       'string.min': 'Title should have at least {#limit} characters',
       'string.max': 'Title should have at most {#limit} characters',
-      'any.required': 'Title is required',
     }),
     content: Joi.string().max(100).messages({
       'string.max': 'Content should have at most {#limit} characters',
