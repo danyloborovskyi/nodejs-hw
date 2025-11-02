@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import 'dotenv/config';
+import cookieParser from 'cookie-parser';
 
 import { connectMongoDB } from './db/connectMongoDB.js';
 import { logger } from './middleware/logger.js';
@@ -9,6 +10,7 @@ import { notFoundHandler } from './middleware/notFoundHandler.js';
 import { errors } from 'celebrate';
 
 import notesRoutes from './routes/notesRoutes.js';
+import authRoutes from './routes/authRoutes.js';
 
 const app = express();
 const PORT = process.env.PORT ?? 3030;
@@ -16,9 +18,10 @@ const PORT = process.env.PORT ?? 3030;
 app.use(express.json());
 app.use(cors());
 app.use(logger);
+app.use(cookieParser());
 
 // Перший маршрут
-
+app.use(authRoutes);
 app.use(notesRoutes);
 
 app.use(notFoundHandler);
