@@ -38,7 +38,10 @@ export const getAllNotes = async (req, res) => {
 
 export const getNoteById = async (req, res, next) => {
   const { noteId } = req.params;
-  const note = await Note.findById({ _id: noteId, userId: req.user._id });
+  const note = await Note.findOne({
+    _id: noteId,
+    userId: req.user._id,
+  });
   if (!note) {
     next(createHttpError(404, 'Note not found'));
     return;
@@ -71,7 +74,8 @@ export const deleteNote = async (req, res, next) => {
 
 export const updateNote = async (req, res, next) => {
   const { noteId } = req.params;
-  const note = await Note.findByIdAndUpdate(
+  const note = await Note.findOneAndUpdate(
+    // Критерій пошуку по userId
     { _id: noteId, userId: req.user._id },
     req.body,
     { new: true },
